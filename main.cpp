@@ -9,6 +9,7 @@
 #include <string>
 
 GLFWwindow * window;
+VulkanRenderer vulkanRenderer;
 
 void initWindow(const std::string & wName = "Tuto",
     const int width = 800, const int height = 600)
@@ -24,19 +25,14 @@ void initWindow(const std::string & wName = "Tuto",
 
 int main()
 {
-    initWindow();
+    initWindow("First Vulkan Prototype");
 
+    if (vulkanRenderer.init(window) == EXIT_FAILURE)
+    {
+        return EXIT_FAILURE;
+    }
 
-    uint32_t extensionCount = 0;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-
-    printf("Extension count : %i\n", extensionCount);
-
-    glm::mat4 testMatrix(1.0f);
-    glm::mat4 testVector(1.0f);
-
-    auto testResult = testMatrix * testVector;
-
+    // Loop until closed.
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
@@ -44,7 +40,9 @@ int main()
 
     }
 
+    // Destroying the window.
     glfwDestroyWindow(window);
+    glfwTerminate();
 
     return EXIT_SUCCESS;
 }
