@@ -1,3 +1,4 @@
+#define VULKAN_DEBUG
 #include "VulkanRenderer.hpp"
 
 #define GLM_FORCE_RADIANS

@@ -9,7 +9,6 @@
 #include <vector>
 #include <cstring>
 
-
 class VulkanRenderer
 {
 public:
@@ -26,6 +25,13 @@ private:
     // - Create Functions
     void createInstance();
     void createLogicalDevice();
+    VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
+
+    // - Destroy Functions
+    void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
+
+    // - Validation Functions
+    void setupDebugMessenger();
 
     // - Get Functions
     void getPhysicalDevice();
@@ -34,6 +40,7 @@ private:
     // -- Checker Functions
     bool checkInstanceExtensionSupport(std::vector<const char *> * checkExtensions);
     bool checkDeviceSuitable(VkPhysicalDevice device);
+    bool checkValidationLayerSupport();
 
     // -- Getter Functions
     QueueFamilyIndices getQueueFamilies(VkPhysicalDevice device);
@@ -45,4 +52,15 @@ private:
         VkDevice logicalDevice;
     } mainDevice;
     VkQueue graphicsQueue;
+
+    // - Validation Attributes
+    VkDebugUtilsMessengerEXT debugMessenger;
+    const std::vector<const char*> validationLayers = {
+        "VK_LAYER_KHRONOS_validation"
+    };
+    #ifdef VULKAN_DEBUG
+        const bool enableValidationLayers = true;
+    #else
+        const bool enableValidationLayers = false;
+    #endif
 };
