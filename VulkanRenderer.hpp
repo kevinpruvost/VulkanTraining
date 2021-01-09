@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <vector>
+#include <set>
 #include <cstring>
 
 class VulkanRenderer
@@ -25,6 +26,7 @@ private:
     // - Create Functions
     void createInstance();
     void createLogicalDevice();
+    void createSurface();
     VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
 
     // - Destroy Functions
@@ -39,11 +41,13 @@ private:
     // - Support Functions
     // -- Checker Functions
     bool checkInstanceExtensionSupport(std::vector<const char *> * checkExtensions);
+    bool checkDeviceExtensionSupport(VkPhysicalDevice device);
     bool checkDeviceSuitable(VkPhysicalDevice device);
     bool checkValidationLayerSupport();
 
     // -- Getter Functions
     QueueFamilyIndices getQueueFamilies(VkPhysicalDevice device);
+    SwapChainDetails getSwapChainDetails(VkPhysicalDevice device);
 
     // Vulkan Components
     VkInstance __instance;
@@ -52,6 +56,8 @@ private:
         VkDevice logicalDevice;
     } mainDevice;
     VkQueue graphicsQueue;
+    VkQueue presentationQueue;
+    VkSurfaceKHR surface;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;
