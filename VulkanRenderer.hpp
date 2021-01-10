@@ -41,6 +41,9 @@ private:
     void getPhysicalDevice();
 
     // - Support Functions
+    // -- Create Functions
+    VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
+
     // -- Checker Functions
     bool checkInstanceExtensionSupport(std::vector<const char *> * checkExtensions);
     bool checkDeviceExtensionSupport(VkPhysicalDevice device);
@@ -57,6 +60,7 @@ private:
     VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR & surfaceCapabilities);
 
     // Vulkan Components
+    // - Main
     VkInstance __instance;
     struct {
         VkPhysicalDevice physicalDevice;
@@ -66,6 +70,11 @@ private:
     VkQueue presentationQueue;
     VkSurfaceKHR surface;
     VkSwapchainKHR swapchain;
+    std::vector<SwapChainImage> swapChainImages;
+
+    // - Utility
+    VkFormat swapChainImageFormat;
+    VkExtent2D swapChainExtent;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;
