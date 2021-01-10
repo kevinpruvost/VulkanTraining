@@ -19,4 +19,7 @@ test: all
 clean:
 	rm -f $(NAME)
 
-re: clean all
+fclean: clean
+	rm -f $(OBJ)
+
+re: fclean all

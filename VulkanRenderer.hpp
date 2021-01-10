@@ -9,6 +9,7 @@
 #include <vector>
 #include <set>
 #include <cstring>
+#include <limits>
 
 class VulkanRenderer
 {
@@ -28,6 +29,7 @@ private:
     void createLogicalDevice();
     void createSurface();
     VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
+    void createSwapChain();
 
     // - Destroy Functions
     void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
@@ -49,6 +51,11 @@ private:
     QueueFamilyIndices getQueueFamilies(VkPhysicalDevice device);
     SwapChainDetails getSwapChainDetails(VkPhysicalDevice device);
 
+    // -- Choose Functions
+    VkSurfaceFormatKHR chooseBestSurfaceFormat(const std::vector<VkSurfaceFormatKHR> & formats);
+    VkPresentModeKHR chooseBestPresentationMode(const std::vector<VkPresentModeKHR> & presentationModes);
+    VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR & surfaceCapabilities);
+
     // Vulkan Components
     VkInstance __instance;
     struct {
@@ -58,6 +65,7 @@ private:
     VkQueue graphicsQueue;
     VkQueue presentationQueue;
     VkSurfaceKHR surface;
+    VkSwapchainKHR swapchain;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;
