@@ -32,3 +32,7 @@ The main purpose of the logical device is to manage every components of Vulkan a
 A Swapchain is mainly used for its image organization capabilities. It is used to avoid display problems like 'tearing' and focuses on synchronization.<br/> It plays a big part on vertical synchronization.
 
 <img src="https://vulkan.lunarg.com/doc/view/1.2.162.0/mac/tutorial/images/Swapchain.png">
+
+### Image Views / Images
+
+Images Views are basically an "interface" for Images to specify how they should be processed to be displayed then.
