@@ -30,6 +30,9 @@
 .vscode
 .vs
 
+# SPIR-V files
+*.spv
+
 # Executables
 *.exe
 *.out
