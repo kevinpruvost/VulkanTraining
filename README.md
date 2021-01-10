@@ -20,7 +20,7 @@ The two main types of devices we'll have to use with Vulkan are Physical and Log
 
 The purpose of a Physical Device is to manage queues and orders to the displays.
 
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fvulkan.lunarg.com%2Fdoc%2Fview%2F1.2.135.0%2Fwindows%2Ftutorial%2Fhtml%2F03-init_device.html&psig=AOvVaw19HXU8jq2rEd-K-dtWOqwt&ust=1610368049140000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCqvc6uke4CFQAAAAAdAAAAABAX">
+<img src="https://vulkan.lunarg.com/doc/view/1.2.135.0/windows/tutorial/images/Device2QueueFamilies.png">
 
 #### Logical Device
 
