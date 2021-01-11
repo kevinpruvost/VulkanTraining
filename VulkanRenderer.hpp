@@ -30,6 +30,7 @@ private:
     void createSurface();
     VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
     void createSwapChain();
+    void createGraphicsPipeline();
 
     // - Destroy Functions
     void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
@@ -43,6 +44,7 @@ private:
     // - Support Functions
     // -- Create Functions
     VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
+    VkShaderModule createShaderModule(const std::vector<char> & code);
 
     // -- Checker Functions
     bool checkInstanceExtensionSupport(std::vector<const char *> * checkExtensions);

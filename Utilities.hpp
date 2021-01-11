@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <fstream>
 
 const std::vector<const char *> deviceExtensions = {
     VK_KHR_SWAPCHAIN_EXTENSION_NAME
@@ -28,3 +29,32 @@ struct SwapChainImage {
     VkImage image;
     VkImageView imageView;
 };
+
+static std::vector<char> readFile(const std::string & fileName)
+{
+    // Open stream from given file.
+    // std::ios::binary tells to read it as binaries
+    // std::ios::ate tells to start reading from the end of the file
+    std::ifstream file(fileName, std::ios::binary | std::ios::ate);
+
+    // Check if file stream successfully opened
+    if (!file.is_open())
+    {
+        throw std::runtime_error("Failed to open a file !");
+    }
+
+    // Get current read position and use to resize file buffer.
+    size_t fileSize = static_cast<size_t>(file.tellg());
+    std::vector<char> fileBuffer(fileSize);
+
+    // Move read position to the start of the file
+    file.seekg(0);
+
+    // Read the file data into the buffer (stream "filesize" in total)
+    file.read(fileBuffer.data(), fileSize);
+
+    // Close stream
+    file.close();
+
+    return fileBuffer;
+}
