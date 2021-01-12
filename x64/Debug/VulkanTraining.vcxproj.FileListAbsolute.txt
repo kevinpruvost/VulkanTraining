@@ -1,0 +1,2 @@
+D:\ReposSSD\VulkanTraining\x64\Debug\VulkanTraining.exe
+D:\ReposSSD\VulkanTraining\x64\Debug\VulkanTraining.pdb

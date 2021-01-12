@@ -10,6 +10,7 @@
 #include <set>
 #include <cstring>
 #include <limits>
+#include <array>
 
 class VulkanRenderer
 {
@@ -30,6 +31,7 @@ private:
     void createSurface();
     VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
     void createSwapChain();
+    void createRenderPass();
     void createGraphicsPipeline();
 
     // - Destroy Functions
@@ -73,6 +75,11 @@ private:
     VkSurfaceKHR surface;
     VkSwapchainKHR swapchain;
     std::vector<SwapChainImage> swapChainImages;
+
+    // - Pipeline
+    VkPipeline graphicsPipeline;
+    VkPipelineLayout pipelineLayout;
+    VkRenderPass renderPass;
 
     // - Utility
     VkFormat swapChainImageFormat;

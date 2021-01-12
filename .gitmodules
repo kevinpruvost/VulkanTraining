@@ -1,0 +1,3 @@
+[submodule "VulkanDependencies"]
+	path = VulkanDependencies
+	url = git@github.com:kevinpruvost/VulkanDependencies.git
