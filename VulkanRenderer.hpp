@@ -33,12 +33,18 @@ private:
     void createSwapChain();
     void createRenderPass();
     void createGraphicsPipeline();
+    void createFramebuffers();
+    void createCommandPool();
+    void createCommandBuffers();
 
     // - Destroy Functions
     void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
 
     // - Validation Functions
     void setupDebugMessenger();
+
+    // - Record Functions
+    void recordCommands();
 
     // - Get Functions
     void getPhysicalDevice();
@@ -74,12 +80,18 @@ private:
     VkQueue presentationQueue;
     VkSurfaceKHR surface;
     VkSwapchainKHR swapchain;
+
     std::vector<SwapChainImage> swapChainImages;
+    std::vector<VkFramebuffer> swapChainFramebuffers;
+    std::vector<VkCommandBuffer> commandBuffers;
 
     // - Pipeline
     VkPipeline graphicsPipeline;
     VkPipelineLayout pipelineLayout;
     VkRenderPass renderPass;
+
+    // - Pools
+    VkCommandPool graphicsCommandPool;
 
     // - Utility
     VkFormat swapChainImageFormat;
