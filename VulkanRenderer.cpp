@@ -29,6 +29,10 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
         createRenderPass();
         createGraphicsPipeline();
 
+        createCommandPool();
+        createCommandBuffers();
+        recordCommands();
+
     } catch (const std::runtime_error & e) {
         printf("ERROR : %s\n", e.what());
         return EXIT_FAILURE;
