@@ -104,6 +104,7 @@ private:
     // - Synchronization
     std::vector<VkSemaphore> imageAvailable;
     std::vector<VkSemaphore> renderFinished;
+    std::vector<VkFence> drawFences;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;

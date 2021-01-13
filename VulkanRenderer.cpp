@@ -45,6 +45,12 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
 void VulkanRenderer::draw()
 {
     // -- GET NEXT IMAGE --
+
+	// Wait for given fence to signal (open) from last draw before continuing
+	vkWaitForFences(mainDevice.logicalDevice, 1, &drawFences[currentFrame], VK_TRUE, std::numeric_limits<uint64_t>::max());
+	// Manually reset (close) fences
+	vkResetFences(mainDevice.logicalDevice, 1, &drawFences[currentFrame]);
+
     // Get index of next image to be drawn to, and signal semaphore when ready to be drawn to
     uint32_t imageIndex;
     vkAcquireNextImageKHR(mainDevice.logicalDevice, swapchain,
@@ -66,7 +72,7 @@ void VulkanRenderer::draw()
     submitInfo.pSignalSemaphores = &renderFinished[currentFrame];             // Semaphores to signal when command buffer finishes
 
     // Submit command buffer to queue.
-    VkResult result = vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
+    VkResult result = vkQueueSubmit(graphicsQueue, 1, &submitInfo, drawFences[currentFrame]);
 
     if (result != VK_SUCCESS)
     {
@@ -105,6 +111,7 @@ void VulkanRenderer::destroy()
     {
         vkDestroySemaphore(mainDevice.logicalDevice, renderFinished[i], nullptr);
         vkDestroySemaphore(mainDevice.logicalDevice, imageAvailable[i], nullptr);
+		vkDestroyFence(mainDevice.logicalDevice, drawFences[i], nullptr);
     }
 
     vkDestroyCommandPool(mainDevice.logicalDevice, graphicsCommandPool, nullptr);
@@ -695,15 +702,22 @@ void VulkanRenderer::createSynchronisation()
 {
     imageAvailable.resize(MAX_FRAME_DRAWS);
     renderFinished.resize(MAX_FRAME_DRAWS);
+	drawFences.resize(MAX_FRAME_DRAWS);
 
     // Semaphore creation information
     VkSemaphoreCreateInfo semaphoreCreateInfo = {};
     semaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 
+	// Fence creation information
+	VkFenceCreateInfo fenceCreateInfo = {};
+	fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+	fenceCreateInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
     for (size_t i = 0; i < MAX_FRAME_DRAWS; ++i)
     {
         if (vkCreateSemaphore(mainDevice.logicalDevice, &semaphoreCreateInfo, nullptr, &imageAvailable[i]) != VK_SUCCESS
-         || vkCreateSemaphore(mainDevice.logicalDevice, &semaphoreCreateInfo, nullptr, &renderFinished[i]) != VK_SUCCESS)
+         || vkCreateSemaphore(mainDevice.logicalDevice, &semaphoreCreateInfo, nullptr, &renderFinished[i]) != VK_SUCCESS
+         || vkCreateFence(mainDevice.logicalDevice, &fenceCreateInfo, nullptr, &drawFences[i]) != VK_SUCCESS)
         {
             throw std::runtime_error("Failed to create a Semaphore !");
         }
@@ -979,7 +993,7 @@ QueueFamilyIndices VulkanRenderer::getQueueFamilies(VkPhysicalDevice device)
     QueueFamilyIndices indices;
 
     // Get all queue families Property infos for the given device.
-    uint32_t queueFamilyCount;
+    uint32_t queueFamilyCount = 0;
     vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
 
     std::vector<VkQueueFamilyProperties> queueFamilyList(queueFamilyCount);
@@ -1044,7 +1058,7 @@ SwapChainDetails VulkanRenderer::getSwapChainDetails(VkPhysicalDevice device)
     if (presentationCount != 0)
     {
         swapChainDetails.presentationModes.resize(presentationCount);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &formatCount, swapChainDetails.presentationModes.data());
+        vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentationCount, swapChainDetails.presentationModes.data());
     }
 
     return swapChainDetails;
