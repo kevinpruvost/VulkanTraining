@@ -474,6 +474,7 @@ void VulkanRenderer::createGraphicsPipeline()
     vertexInputCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     vertexInputCreateInfo.vertexBindingDescriptionCount = 0;
     vertexInputCreateInfo.pVertexBindingDescriptions = nullptr;     // List of Vertex Binding Descriptions (data spacing / stride info)
+    vertexInputCreateInfo.vertexAttributeDescriptionCount = 0;
     vertexInputCreateInfo.pVertexAttributeDescriptions = nullptr;   // List of Vertex Attribute Descriptions (data format and where to bind/to or from)
 
     // -- Input assembly --
@@ -640,7 +641,7 @@ void VulkanRenderer::createFramebuffers()
         VkResult result = vkCreateFramebuffer(mainDevice.logicalDevice, &frameBufferCreateInfo, nullptr, &swapChainFramebuffers[i]);
         if (result != VK_SUCCESS)
         {
-            std::runtime_error("Failed to create a framebuffer !");
+            throw std::runtime_error("Failed to create a framebuffer !");
         }
     }
 }
