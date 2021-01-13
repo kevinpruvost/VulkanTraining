@@ -605,7 +605,7 @@ void VulkanRenderer::createGraphicsPipeline()
     pipelineCreateInfo.pVertexInputState = &vertexInputCreateInfo;          // All the fixed function pipeline states
     pipelineCreateInfo.pInputAssemblyState = &inputAssembly;
     pipelineCreateInfo.pViewportState = &viewportStateCreateInfo;
-    pipelineCreateInfo.pDynamicState = &dynamicStateCreateInfo;
+    pipelineCreateInfo.pDynamicState = nullptr;// &dynamicStateCreateInfo;
     pipelineCreateInfo.pRasterizationState = &rasterizerCreateInfo;
     pipelineCreateInfo.pMultisampleState = &multiSamplingCreateInfo;
     pipelineCreateInfo.pColorBlendState = &colorBlendingStateCreateInfo;
