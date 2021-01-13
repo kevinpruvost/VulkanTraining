@@ -25,6 +25,8 @@ public:
 private:
     GLFWwindow * __window;
 
+    int currentFrame = 0;
+
     // Vulkan Functions
     // - Create Functions
     void createInstance();
@@ -100,8 +102,8 @@ private:
     VkExtent2D swapChainExtent;
 
     // - Synchronization
-    VkSemaphore imageAvailable;
-    VkSemaphore renderFinished;
+    std::vector<VkSemaphore> imageAvailable;
+    std::vector<VkSemaphore> renderFinished;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;
