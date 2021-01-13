@@ -1,9 +1,9 @@
 #pragma once
 
+#include "Mesh.hpp"
+
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-
-#include "Utilities.hpp"
 
 #include <stdexcept>
 #include <vector>
@@ -24,6 +24,8 @@ public:
 
 private:
     GLFWwindow * __window;
+
+    Mesh firstMesh;
 
     int currentFrame = 0;
 
