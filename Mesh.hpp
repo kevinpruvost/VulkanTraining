@@ -14,7 +14,8 @@ class Mesh
 {
 public:
     Mesh();
-    Mesh(VkPhysicalDevice newPhysicalDevice, VkDevice newDevice, std::vector<Vertex> * vertices);
+    Mesh(VkPhysicalDevice newPhysicalDevice, VkDevice newDevice, VkQueue transferQueue,
+         VkCommandPool transferCommandPool, std::vector<Vertex> * vertices);
 
     ~Mesh();
     void destroyVertexBuffer();
@@ -23,7 +24,8 @@ public:
     VkBuffer getVertexBuffer();
 
 private:
-    void createVertexBuffer(std::vector<Vertex> * vertices);
+    void createVertexBuffer(VkQueue transferQueue, VkCommandPool transferCommandPool,
+                            std::vector<Vertex> * vertices);
 
 private:
     int vertexCount;

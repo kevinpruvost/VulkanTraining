@@ -1,6 +1,2 @@
-﻿  Mesh.cpp
-  VulkanRenderer.cpp
-  main.cpp
-  Generating Code...
-D:\ReposSSD\VulkanTraining\Utilities.hpp(91): warning C4715: 'findMemoryTypeIndex': not all control paths return a value
+﻿  VulkanRenderer.cpp
   VulkanTraining.vcxproj -> D:\ReposSSD\VulkanTraining\x64\Debug\VulkanTraining.exe

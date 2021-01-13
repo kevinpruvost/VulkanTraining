@@ -1,10 +1,10 @@
 #pragma once
 
+// Project includes
 #include "Mesh.hpp"
+#include "VulkanValidation.hpp"
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
+// C++ includes
 #include <stdexcept>
 #include <vector>
 #include <set>
@@ -34,7 +34,6 @@ private:
     void createInstance();
     void createLogicalDevice();
     void createSurface();
-    VkResult CreateDebugUtilsMessengerEXT(VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo, const VkAllocationCallbacks* pAllocator, VkDebugUtilsMessengerEXT* pDebugMessenger);
     void createSwapChain();
     void createRenderPass();
     void createGraphicsPipeline();
@@ -42,9 +41,6 @@ private:
     void createCommandPool();
     void createCommandBuffers();
     void createSynchronisation();
-
-    // - Destroy Functions
-    void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
 
     // - Validation Functions
     void setupDebugMessenger();
@@ -78,6 +74,7 @@ private:
     // Vulkan Components
     // - Main
     VkInstance __instance;
+    VkDebugReportCallbackEXT callback;
     struct {
         VkPhysicalDevice physicalDevice;
         VkDevice logicalDevice;
@@ -109,13 +106,9 @@ private:
     std::vector<VkFence> drawFences;
 
     // - Validation Attributes
-    VkDebugUtilsMessengerEXT debugMessenger;
-    const std::vector<const char*> validationLayers = {
-        "VK_LAYER_KHRONOS_validation"
-    };
-    #ifdef VULKAN_DEBUG
+    //#ifdef VULKAN_DEBUG
         const bool enableValidationLayers = true;
-    #else
-        const bool enableValidationLayers = false;
-    #endif
+    //#else
+    //    const bool enableValidationLayers = false;
+    //#endif
 };
