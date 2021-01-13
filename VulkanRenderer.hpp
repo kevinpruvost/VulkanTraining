@@ -19,6 +19,7 @@ public:
     ~VulkanRenderer();
 
     int init(GLFWwindow * newWindow);
+    void draw();
     void destroy();
 
 private:
@@ -36,6 +37,7 @@ private:
     void createFramebuffers();
     void createCommandPool();
     void createCommandBuffers();
+    void createSynchronisation();
 
     // - Destroy Functions
     void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT debugMessenger, const VkAllocationCallbacks* pAllocator);
@@ -96,6 +98,10 @@ private:
     // - Utility
     VkFormat swapChainImageFormat;
     VkExtent2D swapChainExtent;
+
+    // - Synchronization
+    VkSemaphore imageAvailable;
+    VkSemaphore renderFinished;
 
     // - Validation Attributes
     VkDebugUtilsMessengerEXT debugMessenger;

@@ -14,7 +14,7 @@ VERTS	=	$(addsuffix .vert, $(SHADERS))
 
 # C++ Flags
 
-CFLAGS	=	-std=c++17 -O2 -g
+CFLAGS	=	-std=c++17 -O0 -g
 LDFLAGS	=	-lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
 NAME	=	vulkanTest
 

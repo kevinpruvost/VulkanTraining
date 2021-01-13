@@ -38,7 +38,7 @@ int main()
     {
         glfwPollEvents();
 
-
+        vulkanRenderer.draw();
     }
 
     // Destroying the window.
