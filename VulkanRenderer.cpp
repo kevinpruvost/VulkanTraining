@@ -29,6 +29,7 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
         createRenderPass();
         createGraphicsPipeline();
 
+        createFramebuffers();
         createCommandPool();
         createCommandBuffers();
         recordCommands();
