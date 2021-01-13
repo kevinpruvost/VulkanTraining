@@ -25,7 +25,7 @@ public:
 private:
     GLFWwindow * __window;
 
-    Mesh firstMesh;
+    std::vector<Mesh> meshList;
 
     int currentFrame = 0;
 
