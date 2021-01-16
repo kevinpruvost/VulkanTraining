@@ -21,12 +21,21 @@
     <ClCompile Include="VulkanRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utilities.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VulkanRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanValidation.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
