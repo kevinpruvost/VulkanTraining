@@ -84,6 +84,11 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
     return EXIT_SUCCESS;
 }
 
+void VulkanRenderer::updateModel(glm::mat4 newModel)
+{
+    mvp.model = newModel;
+}
+
 void VulkanRenderer::destroy()
 {
     // Destruction order is important !
