@@ -114,6 +114,8 @@ We can also begin new subpasses, but binding pipeline will be needed.
 
 Command buffers are also created from a **Command Pool**, unlike most of the Vulkan objects.
 
+Command buffers then submits continously its commands to the appropriate queus for execution.
+
 ## Command Pool
 
 It's just a structure that manages every commands allocated dynamically. It's very useful for Vulkan to manage memory in an easier way, so that allocated commands can be all freed from one place.
@@ -138,3 +140,4 @@ Some functions to illustrate this process :
 
 **Fences** are very useful to be sure we do not flood the queues with too many draw/presentation commands.
 
+To be clear : **Fences = CPU/GPU Synchronization**, **Semaphores = GPU/GPU Synchronization**
