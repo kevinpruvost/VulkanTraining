@@ -141,3 +141,43 @@ Some functions to illustrate this process :
 **Fences** are very useful to be sure we do not flood the queues with too many draw/presentation commands.
 
 To be clear : **Fences = CPU/GPU Synchronization**, **Semaphores = GPU/GPU Synchronization**
+
+## Resource Loading
+
+### Vertex Data
+
+In GLSL *layout(location = x)*.
+
+Vertex Data is loaded dynamically into **Vertex Buffers**. They can be assigned memory properties.
+Here's a list of these properties :
+
+* VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT : Optimized for GPU usage, therefore can not be accessed directly by CPU.
+
+* VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT : Accessible by Host (CPU). Allows us to map data in application to GPU.
+
+* VK_MEMORY_PROPERTY_HOST_COHERENT_BIT : Allows data mapping to bypass caching commands, meaning data mapped does not need to be flushed to memory.
+
+### Mapping Memory
+
+Basically, binds Buffer and Device Memory.
+To copy memory between them, we need to map and unmap them (*vkMapMemory* *vkUnmapMemory*).
+We can use *Index Buffers* to minimize data duplicates, and **Staging Buffers** to copy the Index Buffers data to the Vertex Buffers ones. It is more optimized.
+
+## Descriptor Sets
+
+Descriptors describe multiple values being passed into a pipeline, there's multiple types of **Descriptor Sets** :  **Images, Samplers, or "Uniform" Descriptor Set**.
+
+To create **Descriptor Set**, we need a **Descriptor Set Layout**, it tells how the **Descriptor Set** describes
+to a **Pipeline**, but it also tells what resource the **Descriptor Set** is bound to.
+
+Every set needs a layout.
+**Pipelines** can take multiple **descriptor sets**.
+
+We need to create a **Descriptor Pool** to regroup all of the descripts from the set.
+Each descriptor needs a buffer.
+
+If a descriptor set data changes each draw call, a **Dynamic Uniform Buffer** would be more appropriate.
+If a descriptor set data changes each frame, a **Push Constant** may be better.
+
+## Push Constants
+
