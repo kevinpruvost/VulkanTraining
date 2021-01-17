@@ -4,6 +4,8 @@
 #include "Mesh.hpp"
 #include "VulkanValidation.hpp"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 // C++ includes
 #include <stdexcept>
 #include <vector>
@@ -25,7 +27,15 @@ public:
 private:
     GLFWwindow * __window;
 
+    // Scene objects
     std::vector<Mesh> meshList;
+
+    // Scene settings
+    struct MVP {
+        glm::mat4 projection;
+        glm::mat4 view;
+        glm::mat4 model;
+    } mvp;
 
     int currentFrame = 0;
 
@@ -36,11 +46,18 @@ private:
     void createSurface();
     void createSwapChain();
     void createRenderPass();
+    void createDescriptorSetLayout();
     void createGraphicsPipeline();
     void createFramebuffers();
     void createCommandPool();
     void createCommandBuffers();
     void createSynchronisation();
+
+    void createUniformBuffers();
+    void createDescriptorPool();
+    void createDescriptorSets();
+
+    void updateUniformBuffer(uint32_t imageIndex);
 
     // - Validation Functions
     void setupDebugMessenger();
@@ -87,6 +104,15 @@ private:
     std::vector<SwapChainImage> swapChainImages;
     std::vector<VkFramebuffer> swapChainFramebuffers;
     std::vector<VkCommandBuffer> commandBuffers;
+
+    // - Descriptors
+    VkDescriptorSetLayout descriptorSetLayout;
+
+    VkDescriptorPool descriptorPool;
+    std::vector<VkDescriptorSet> descriptorSets;
+
+    std::vector<VkBuffer> uniformBuffer;
+    std::vector<VkDeviceMemory> uniformBufferMemory;
 
     // - Pipeline
     VkPipeline graphicsPipeline;
