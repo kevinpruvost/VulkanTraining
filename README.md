@@ -95,4 +95,46 @@ Handles the execution and output from each **pipeline** to the **framebuffer**. 
 
 A Render Pass can have multiple attachments referenced by subpasses, they are considered as dependencies for subpasses.
 
+## Framebuffer
+
+Contains **images** processed by the **Render Pass**, 1 by 1 like a queue container.
+**Framebuffers** are attached to **pipelines**.
+
+## Command Buffer
+
+Pre-recorded group of commands meant to be sent to the GPU, usually in this order :
+
+1. Start a Render Pass
+2. Bind a Pipeline
+3. Bind Vertex/Index data
+4. Bind Descriptor Sets and Push Constants
+5. Draw
+
+We can also begin new subpasses, but binding pipeline will be needed.
+
+Command buffers are also created from a **Command Pool**, unlike most of the Vulkan objects.
+
+## Command Pool
+
+It's just a structure that manages every commands allocated dynamically. It's very useful for Vulkan to manage memory in an easier way, so that allocated commands can be all freed from one place.
+
+## Synchronization
+
+As **Presentation** and **Rendering** are working in parallel with Vulkan. Some processes had to be created to manage access to the different resources used by both **Presentation** and **Rendering**.
+
+**Semaphores** were created to handle that. This weird word is basically a flag that will specify if a resource is accessible or not. If a resource is "signalled" (set to true), it's accessible, if it's "unsignalled" (set to false), it is not.
+
+It is the way Vulkan handles multithreading (or asynchronous ?) within its environment.
+
+**But keep hard in mind that Semaphores are used for GPU-side operations.**
+
+For the **CPU side**, there are **Fences** that do the same things but... for the **CPU**. **GPUs** can still "signal" **Fences** if they need to.
+
+Some functions to illustrate this process :
+
+* *vkWaitForFences* : Blocks the CPU code and waits for the GPU to signal the fence.
+
+* *vkResetFences* : Unsignal a fence until the GPU signals it again.
+
+**Fences** are very useful to be sure we do not flood the queues with too many draw/presentation commands.
 
