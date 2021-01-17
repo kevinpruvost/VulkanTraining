@@ -6,7 +6,7 @@
 
 ### Queues
 
-Queues are basically containers (std::queue-like) that receive orders and execute them on a FIFO order.<br/>
+Queues are basically containers (std::queue-like) that receive orders and execute them on a FIFO pattern.<br/>
 Each of these order differ based on the VkQueue type and working purpose.<br/>
 
 <img src="https://static.packt-cdn.com/products/9781786469809/graphics/image_03_006.jpg">
@@ -23,16 +23,47 @@ The purpose of a Physical Device is to manage queues and orders to the displays.
 
 #### Logical Device
 
-The main purpose of the logical device is to manage every components of Vulkan and to make them work together.<br/>
+The main purpose of the Logical device is to manage every components of Vulkan and to make them work together.<br/>
 
 <img src ="https://static.wixstatic.com/media/9b0684_f73f0947829a4842ab0106eb7e1fe88f~mv2.png/v1/fill/w_560,h_238,al_c,q_85,usm_0.66_1.00_0.01/9b0684_f73f0947829a4842ab0106eb7e1fe88f~mv2.webp">
 
 ### Swapchain
 
-A Swapchain is mainly used for its image organization capabilities. It is used to avoid display problems like 'tearing' and focuses on synchronization.<br/> It plays a big part on vertical synchronization.
+A **Swapchain** is mainly used for its image organization capabilities. It is used to avoid display problems like **tearing** and focuses on synchronization.<br/> It plays a big part on vertical synchronization.
 
 <img src="https://vulkan.lunarg.com/doc/view/1.2.162.0/mac/tutorial/images/Swapchain.png">
 
 ### Image Views / Images
 
 Images Views are basically an "interface" for Images to specify how they should be processed to be displayed then.
+
+### Graphics Pipeline
+
+<img src="https://github.com/kevinpruvost/VulkanTraining/blob/main/Screenshots/Screenshot%20from%202021-01-17%2000-47-41.png">
+
+* **Input Assembler** : Just assembles inputs into a geometry, containing Tris, Vertices, ...
+
+* **Vertex Shader** : Tells how to handle vertices taken in inputs.
+
+* **Tesselation** : It basically splits Triangles into smaller ones to enable some additional GFX features like water movement (waves, ocean, ...).
+
+* **Geometry Shader** : Adds points to the focused geometry, used to create shadows.
+
+* **Rasterization** : Locates where the soon to be drawn pixels should be based on the geometry.
+
+* **Fragment Shader** : A part we code, that will take into account additional processes like lighting.
+
+* **Color Blending** : Takes the alpha color channel primarily and deals with every other geometries that will be drawn to blend colors properly.
+
+* **Framebuffer** : Contains the final image.
+
+### Shaders
+
+For shaders, Vulkan uses a specific format named **SPIR-V**, basically, **.vert** and **.frag** files will have to be compiled<br/>
+to make Vulkan able to use the vertices and the fragments of a shader.<br/>
+Vulkan gives a binary that has the ability to compile these shader files into **.spv**, it's called **glslangValidator**.
+
+**SPIR-V** stands for ***Standard Portable Intermediate Representation - Vulkan***.
+
+For this project, I'll use **GLSL** to write all my shaders.
+
