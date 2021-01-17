@@ -78,10 +78,7 @@ However some settings can be given ability to change at runtime, and they can be
 
 * **Depth stencil** : How to determine depth + stencil culling and writing.
 
-* **Render Pass** : Handles the execution and output from each **pipeline** to the **framebuffer**. Can contain multiple **Subpasses**, each can have its own way of rendering the output.
-**Subpasses** can be **switched** between them to tell which one should be used by the **render pass**.
-
-### Shaders
+#### Shaders
 
 For shaders, Vulkan uses a specific format named **SPIR-V**, basically, **.vert** and **.frag** files will have to be compiled<br/>
 to make Vulkan able to use the vertices and the fragments of a shader.<br/>
@@ -90,4 +87,12 @@ Vulkan gives a binary that has the ability to compile these shader files into **
 **SPIR-V** stands for ***Standard Portable Intermediate Representation - Vulkan***.
 
 For this project, I'll use **GLSL** to write all my shaders.
+
+#### Render Pass
+
+Handles the execution and output from each **pipeline** to the **framebuffer**. Can contain multiple **Subpasses**, each can have its own way of rendering the output.
+**Subpasses** can be **switched** between them to tell which one should be used by the **render pass**.
+
+A Render Pass can have multiple attachments referenced by subpasses, they are considered as dependencies for subpasses.
+
 
