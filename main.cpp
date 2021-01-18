@@ -55,6 +55,8 @@ int main()
         vulkanRenderer.draw();
     }
 
+    vulkanRenderer.destroy();
+
     // Destroying the window.
     glfwDestroyWindow(window);
     glfwTerminate();
