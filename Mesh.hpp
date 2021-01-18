@@ -10,7 +10,7 @@
 // C++ includes
 #include <vector>
 
-struct UboModel
+struct Model
 {
     glm::mat4 model;
 
@@ -27,7 +27,7 @@ public:
     void destroyVertexBuffer();
 
     void setModel(glm::mat4 newModel);
-    UboModel getModel();
+    Model getModel();
 
     int getVertexCount();
     VkBuffer getVertexBuffer();
@@ -42,7 +42,7 @@ private:
         std::vector<uint32_t>* indices);
 
 private:
-    UboModel uboModel;
+    Model model;
 
     int vertexCount;
     VkBuffer vertexBuffer;
