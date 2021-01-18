@@ -177,10 +177,4 @@ We need to create a **Descriptor Pool** to regroup all of the descripts from the
 Each descriptor needs a buffer.
 
 If a descriptor set data changes each draw call, a **Dynamic Uniform Buffer** would be more appropriate.
-If a descriptor set data changes each frame, a **Push Constant** may be better.
-
-## Push Constants
-
-Faster than a **Dynamic Uniform Buffer** in cases where the model data is pretty light. If it becomes bigger and in large amounts, **Dynamic Uniform Buffer** are better.
-
-Just, useful to know that this method exists, also a lot easier to implement.
+If a descriptor set data changes each frame, a **Push Constant** may be better, **Push Constants** are also a lot easier to implement.
