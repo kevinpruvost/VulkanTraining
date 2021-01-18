@@ -32,24 +32,24 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
         createCommandPool();
 
         uboViewProjection.projection = glm::perspective(glm::radians(45.0f), (float)swapChainExtent.width / (float)swapChainExtent.height, 0.1f, 100.0f);
-        uboViewProjection.view = glm::lookAt(glm::vec3(3.0f, 1.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		uboViewProjection.view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
-        uboViewProjection.projection[1][1] *= -1; glm::perspective(glm::radians(45.0f), (float)swapChainExtent.width / (float)swapChainExtent.height, 0.1f, 100.0f);
+		uboViewProjection.projection[1][1] *= -1;
 
         // Create a mesh
         // Vertex Data
         std::vector<Vertex> meshVertices = {
-            { { -0.1, -0.4, 0.0 },{ 1.0f, 0.0f, 0.0f } },	// 0
-            { { -0.1, 0.4, 0.0 },{ 0.0f, 1.0f, 0.0f } },	    // 1
-            { { -0.9, 0.4, 0.0 },{ 0.0f, 0.0f, 1.0f } },    // 2
-            { { -0.9, -0.4, 0.0 },{ 1.0f, 1.0f, 0.0f } },   // 3
+            { { -0.4, 0.4, 0.0 },{ 1.0f, 0.0f, 0.0f } },	// 0
+            { { -0.4, -0.4, 0.0 },{ 0.0f, 1.0f, 0.0f } },	    // 1
+            { { 0.4, -0.4, 0.0 },{ 0.0f, 0.0f, 1.0f } },    // 2
+            { { 0.4, 0.4, 0.0 },{ 1.0f, 1.0f, 0.0f } },   // 3
         };
 
         std::vector<Vertex> meshVertices2 = {
-            { { 0.9, -0.3, 0.0 },{ 1.0f, 0.0f, 0.0f } },	// 0
-            { { 0.9, 0.1, 0.0 },{ 0.0f, 1.0f, 0.0f } },	    // 1
-            { { 0.1, 0.3, 0.0 },{ 0.0f, 0.0f, 1.0f } },    // 2
-            { { 0.1, -0.3, 0.0 },{ 1.0f, 1.0f, 0.0f } },   // 3
+            { { -0.25, 0.6, 0.0 },{ 1.0f, 0.0f, 0.0f } },	// 0
+            { { -0.25, -0.6, 0.0 },{ 0.0f, 1.0f, 0.0f } },	    // 1
+            { { 0.25, -0.6, 0.0 },{ 0.0f, 0.0f, 1.0f } },    // 2
+            { { 0.25, 0.6, 0.0 },{ 1.0f, 1.0f, 0.0f } },   // 3
         };
 
         // Index Data
@@ -87,8 +87,11 @@ int VulkanRenderer::init(GLFWwindow * newWindow)
     return EXIT_SUCCESS;
 }
 
-void VulkanRenderer::updateModel(glm::mat4 newModel)
+void VulkanRenderer::updateModel(int modelId, glm::mat4 newModel)
 {
+    if (modelId >= meshList.size()) return;
+
+    meshList[modelId].setModel(newModel);
 }
 
 void VulkanRenderer::destroy()

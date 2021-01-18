@@ -22,7 +22,7 @@ public:
 
     int init(GLFWwindow * newWindow);
 
-    void updateModel(glm::mat4 newModel);
+    void updateModel(int modelId, glm::mat4 newModel);
 
     void draw();
     void destroy();
