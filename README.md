@@ -181,3 +181,6 @@ If a descriptor set data changes each frame, a **Push Constant** may be better.
 
 ## Push Constants
 
+Faster than a **Dynamic Uniform Buffer** in cases where the model data is pretty light. If it becomes bigger and in large amounts, **Dynamic Uniform Buffer** are better.
+
+Just, useful to know that this method exists, also a lot easier to implement.
