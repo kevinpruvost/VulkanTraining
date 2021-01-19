@@ -178,3 +178,19 @@ Each descriptor needs a buffer.
 
 If a descriptor set data changes each draw call, a **Dynamic Uniform Buffer** would be more appropriate.
 If a descriptor set data changes each frame, a **Push Constant** may be better, **Push Constants** are also a lot easier to implement.
+
+## Depth Buffer
+
+Basically, depth is not handled natively with Vulkan. If an object is being drawn after another, even if it's farther than the other object, then we will see it first.
+
+So we have to handle it ourselves. We can use **Depth Buffers** for that.
+
+To use them, we need to store the Depth data into an image, as **Swapchains** don't handle depth images, we will need to create it manually.
+We'll have to designate a Device Memory for the actual image that will be bound to a VkImage, generating an Image View from it.
+Depth values are then calculated automatically by the Pipeline.
+
+The Depth Image will be an attachment for the render pass, just be aware that **Framebuffer and Render Pass attachments** line up.
+
+We'll also have to enable **depth testing and writing** on the Pipeline. 
+
+**Depth Buffer** checks for the closest points to the camera to ensure objects drawings overlap correctly.
