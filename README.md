@@ -194,3 +194,9 @@ The Depth Image will be an attachment for the render pass, just be aware that **
 We'll also have to enable **depth testing and writing** on the Pipeline. 
 
 **Depth Buffer** checks for the closest points to the camera to ensure objects drawings overlap correctly.
+
+## Textures
+
+**Textures** are made of 2 things : an **Image** (contains the data of the image itself) and a **Sampler** (contains pre-defined methods to handle how to access the image).
+
+To load the image data, we'll use the **[stb_image](https://github.com/nothings/stb)** library.
